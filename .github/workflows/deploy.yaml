@@ -6,7 +6,40 @@ on:
       - main
 
 jobs:
-    build:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: go mod download
+
+      # TODO 01 - Add a step to run tests
+      - name: Run tests
+        run: go test ./main_test.go
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Compile binary
+        run: go build -o myapp
+     build:
     # Specify the OS for the runner
     runs-on: ubuntu-latest
 
@@ -45,36 +78,3 @@ jobs:
       # Step 5: Push the Docker image to GitHub Container Registry
       - name: Push Docker image
         run: docker push ghcr.io/${{ github.repository }}:latest
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
-
-      - name: Install dependencies
-        run: go mod download
-
-      # TODO 01 - Add a step to run tests
-      - name: Run tests
-        run: go test ./main_test.go
-  compile:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
-
-      - name: Install dependencies
-        run: go mod download
-
-      - name: Compile binary
-        run: go build -o myapp

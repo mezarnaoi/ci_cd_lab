@@ -4,6 +4,8 @@ metadata:
   name: go-simple-webserver
   namespace: argocd
 spec:
+  syncPolicy:
+    automated: {}
   project: default
   source:
     repoURL: https://github.com/mezarnaoi/ci_cd_lab.git

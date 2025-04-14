@@ -6,9 +6,6 @@ on:
       - main
 
 jobs:
-  stages:
-      - test
-      - compile
   test:
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +22,7 @@ jobs:
 
       # TODO 01 - Add a step to run tests
       - name: Run tests
-        run: go test ./../../main_test.go
+        run: go test ./main_test.go
   compile:
     runs-on: ubuntu-latest
     steps:
